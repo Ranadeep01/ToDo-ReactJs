@@ -49,6 +49,10 @@
     justify-content: end;
 }
 
+.actions :hover{
+    cursor: pointer;
+}
+
 .add{
     display: flex;
     flex: 1;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import data from './data.json'
 import './Todo.css'
 
@@ -8,9 +8,15 @@ export default function Todo() {
   const [selected, setSelected] = useState(new Set())
   const [completed, setCompleted] = useState([])
 
-  todos.forEach((t)=>{
-    localStorage.setItem(t.id, JSON.stringify(t))
-  })
+  useEffect(()=>{
+    todos.forEach((t)=>{
+      console.log(localStorage.length)
+      localStorage.setItem(t.id, JSON.stringify(t))
+    })
+
+  },[todos, localStorage])
+
+
 
   const handleSelect = (id) => {
     const newSelected = new Set(selected);
@@ -41,6 +47,7 @@ export default function Todo() {
 
   const handleAdd=()=>{
     console.log('handle Add')
+    
   }
 
   return (
@@ -48,7 +55,9 @@ export default function Todo() {
       <h1>TODO App</h1>
       <div>
           {
-            todos.map((task)=>{
+            // todos.map((task)=>{
+              Object.keys(localStorage).map((key)=>{
+                const task = JSON.parse(localStorage.getItem(key))
                 return(
                   <div className='desc'>
                     <div className='list'>
@@ -56,13 +65,10 @@ export default function Todo() {
                           {task.title}                          
                       </div>
                       <div className="actions">
-                        <button onClick={()=>handleEdit(task.id)}>E</button>
-                        <button onClick={()=>handleDone(task.id)}>Done</button>
-                        <button onClick={()=>handleDelete(task.id)}>X</button>
-                          {/* <img src='../../public/icons/Edit-icon.svg' alt='Edit' />
-                          <img src='../../public/icons/Edit-icon.svg' alt='Edit' />
-                          <img src='../../public/icons/Edit-icon.svg' alt='Edit' /> */}
-                      </div>
+                        <img src='/icons/Done-icon.svg' alt='Done' onClick={()=>handleDone(task.id)} />
+                        <img src='/icons/Edit-icon.svg' alt='Edit' onClick={()=>handleEdit(task.id)} />
+                        <img src='/icons/Delete-icon.svg' alt='Delete' onClick={()=>handleDelete(task.id)} />
+                    </div>
                     </div>
                     <div>
                       {
