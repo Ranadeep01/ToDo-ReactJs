@@ -1,0 +1,30 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    flex-direction: column;
+    background-color: #D6D7EF;
+}
+
+.title{
+    width: 400px;
+    border-radius: 15px;
+    opacity: 0px;
+    display: flex;
+    flex: 3;
+    font-family: Jost;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 18.79px;
+    text-align: left;
+    color: #9395D3;    
+    background-color: #ffffff;
+    padding: 2rem;
+    margin: 2rem;
+}
+
+.actions{
+    display: flex;
+    flex: 1
+}
