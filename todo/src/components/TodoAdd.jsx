@@ -26,6 +26,10 @@ export default function TodoAdd({ setType, Id }) {
     }
   };
 
+  const handleBack=()=>{
+    setType('show');
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newTodo = {
@@ -49,8 +53,9 @@ export default function TodoAdd({ setType, Id }) {
       <input type='text' placeholder='Description' name='description' value={description} onChange={handleChange} />
       <div className='btn'>
         <button type='submit' onClick={handleSubmit}>
-          {edit ? 'Save' : 'Add'}
+          {(edit) ? 'Save' : 'Add'}
         </button>
+        <button type='submit' onClick={handleBack}>Back</button>
       </div>
     </div>
   );
