@@ -49,8 +49,8 @@ export default function TodoAdd({ setType, Id }) {
 
   return (
     <div className='main'>
-      <input type='text' placeholder='Title' name='title' value={title} onChange={handleChange} />
-      <input type='text' placeholder='Description' name='description' value={description} onChange={handleChange} />
+      <input className='input' type='text' placeholder='Title' name='title' value={title} onChange={handleChange} />
+      <input className='input' type='text' placeholder='Description' name='description' value={description} onChange={handleChange} />
       <div className='btn'>
         <button type='submit' onClick={handleSubmit}>
           {(edit) ? 'Save' : 'Add'}

@@ -4,6 +4,7 @@ import './Todo.css';
 
 export default function Todo({ setType, setId }) {
   const [todos, setTodos] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     const storedTodos = Object.keys(localStorage).map((key) => JSON.parse(localStorage.getItem(key)));
@@ -42,30 +43,55 @@ export default function Todo({ setType, setId }) {
     setType('add');
   };
 
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
+
   return (
-    <div className='container'>
-      <h1>TODO App</h1>
-      <div>
-        {todos.map((task) => (
-          <div className='desc' key={task.id}>
-            <div className='list'>
-              <div className="title" onClick={() => handleSelect(task.id)}>
-                {task.title}
+    <div className='body'>
+      <div className='container'>
+        <div className='heading'>
+          <h1>TODO App</h1> 
+          <input type='text' placeholder='Search' value={search} className='search' onChange={handleSearch} />
+        </div>
+        <div>
+          {todos
+            .filter((task) =>
+              task.title.toLowerCase().includes(search.toLowerCase())
+            )
+            .map((task) => (
+              <div className='desc' key={task.id}>
+                <div className='list'>
+                  <div className="title" onClick={() => handleSelect(task.id)}>
+                    {task.title}
+                  </div>
+                  <div className="actions">
+                    <img
+                      src='/icons/Done-icon.svg'
+                      alt='Done'
+                      onClick={() => handleDone(task.id)}
+                    />
+                    <img
+                      src='/icons/Edit-icon.svg'
+                      alt='Edit'
+                      onClick={() => handleEdit(task.id)}
+                    />
+                    <img
+                      src='/icons/Delete-icon.svg'
+                      alt='Delete'
+                      onClick={() => handleDelete(task.id)}
+                    />
+                  </div>
+                </div>
+                <div>
+                  {task.selected ? <div>{task.description}</div> : null}
+                </div>
               </div>
-              <div className="actions">
-                <img src='/icons/Done-icon.svg' alt='Done' onClick={() => handleDone(task.id)} />
-                <img src='/icons/Edit-icon.svg' alt='Edit' onClick={() => handleEdit(task.id)} />
-                <img src='/icons/Delete-icon.svg' alt='Delete' onClick={() => handleDelete(task.id)} />
-              </div>
-            </div>
-            <div>
-              {task.selected ? <div>{task.description}</div> : null}
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className='add' onClick={handleAdd}>
-        <img src='/icons/plus.svg' alt='Add' />
+            ))}
+        </div>
+        <div className='add' >
+          <img src='/icons/plus.svg' alt='Add' onClick={handleAdd} />
+        </div>
       </div>
     </div>
   );
